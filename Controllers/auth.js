@@ -1,6 +1,8 @@
 
 const registermodel = require('../Models/auth')
 const Authservice = require('../services/auth')
+const ticketcreationmodel = require('../Models/ticket')
+const cohereclient = require('cohere-ai')
 function redirectlogin(req,res){
     res.render('login')
 }
@@ -36,11 +38,53 @@ async function handlogin(request,response){
     }
 }
 
+async function createtickets(request,response){
+  const {title,description} = request.body
+  const userid = request.user._id
+   const client = new cohereclient.CohereClient({
+    token : 'eupxDRJ7PQZ7CuFgKFDvqFZf9PZJJUO6iYXj2rzH'
+   })
+ const priority =await client.classify({
+    model: "f8ab45a6-b178-4eac-a39d-deb070e11d1d-ft",  // <- make sure this is correct and deployed
+  inputs: [
+      description
+  ],
+  examples: [
+    {
+      text: "My app crashes every time I try to open it.",
+      label: "High Priority"
+    },
+    {
+      text: "Our entire system is down and no users can log in. We need immediate support!",
+      label: "High Priority"
+    },
+    {
+      text: "I forgot my password and the reset link is not working. I can't access my account.",
+      label: "Account Issue"
+    },
+    {
+      text: "My account has been locked out after multiple login attempts. Please help restore access.",
+      label: "Account Issue"
+    }
+  ]
+});
+  await ticketcreationmodel.create({
+    userid : userid,
+    title : title,
+    description : description,
+    priority : priority.classifications[0].prediction
+  }).then(() => {
+    response.render('Tickets')
+  })
+  
+}
+
 
 module.exports = {
     redirectlogin,
     redirectregister,
     handleregistration,
     redirecthome,
-    handlogin
+    handlogin,
+    createtickets
 }

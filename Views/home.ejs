@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Create Ticket</title>
+</head>
+<body>
+  <h1>Create Support Ticket</h1>
+
+  <form action="/api/tickets" method="POST">
+    <label for="title">Title:</label><br>
+    <input type="text" id="title" name="title" required><br><br>
+
+    <label for="description">Description:</label><br>
+    <textarea id="description" name="description" rows="6" cols="40" required></textarea><br><br>
+
+    <button type="submit">Submit Ticket</button>
+  </form>
+</body>
+</html>

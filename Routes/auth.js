@@ -14,5 +14,5 @@ application.get('/register',handler.redirectregister)
 application.post('/api/auth/register',handler.handleregistration)
 application.get('/api/auth/home',checklogin,handler.redirecthome)
 application.post('/api/auth/login',handler.handlogin)
-application.get('/api/auth/login',handler.redirecthome)
+application.post('/api/tickets',checklogin,handler.createtickets)
 module.exports = application

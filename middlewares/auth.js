@@ -15,7 +15,8 @@ async function checklogin(req,res,next){
         return res.render('login')
      }
      else{
-        res.render('home')
+        req.user =user
+        next()
      }
  }
 }
