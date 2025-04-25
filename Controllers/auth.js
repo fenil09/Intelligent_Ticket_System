@@ -74,9 +74,16 @@ async function createtickets(request,response){
     description : description,
     priority : priority.classifications[0].prediction
   }).then(() => {
-    response.render('Tickets')
+     response.redirect('Tickets')
+      console.log("Ticket Created")
   })
   
+}
+
+
+async function Getticket(req,res){
+  const tickets = await ticketcreationmodel.find({userid: req.user._id})
+  res.render('Tickets',{tickets});
 }
 
 
@@ -86,5 +93,6 @@ module.exports = {
     handleregistration,
     redirecthome,
     handlogin,
-    createtickets
+    createtickets,
+    Getticket
 }

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Tickets</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f2f2f2;
+    }
+    .ticket-container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .ticket-card {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+    }
+    .ticket-card h2 {
+      margin-top: 0;
+      font-size: 20px;
+    }
+    .ticket-info {
+      margin: 10px 0;
+    }
+    .ticket-info span {
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>My Submitted Tickets</h1>
+
+  <% if (tickets && tickets.length > 0) { %>
+    <div class="ticket-container">
+      <% tickets.forEach(ticket => { %>
+        <div class="ticket-card">
+          <h2><%= ticket.title %></h2>
+          <p class="ticket-info"><span>Description:</span> <%= ticket.description %></p>
+          <p class="ticket-info"><span>Priority:</span> <%= ticket.priority %></p>
+                </div>
+      <% }) %>
+    </div>
+  <% } else { %>
+    <p>No tickets submitted yet.</p>
+  <% } %>
+
+</body>
+</html>
