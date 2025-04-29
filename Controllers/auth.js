@@ -34,6 +34,7 @@ async function handlogin(request,response){
     else{
        const token = Authservice.setuser(user)
        response.cookie('uid',token)
+       response.user = user
        response.redirect('home')
     }
 }
@@ -87,6 +88,12 @@ async function Getticket(req,res){
 }
 
 
+async function GetticketsforAdmin(req,res){
+  const tickets = await ticketcreationmodel.find({})
+  res.render('admin',{tickets})
+}
+
+
 module.exports = {
     redirectlogin,
     redirectregister,
@@ -94,5 +101,6 @@ module.exports = {
     redirecthome,
     handlogin,
     createtickets,
-    Getticket
+    Getticket,
+    GetticketsforAdmin,
 }

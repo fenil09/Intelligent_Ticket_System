@@ -4,6 +4,7 @@
 
 
 const Authservice = require('../services/auth')
+const registermodel = require('../Models/auth')
 async function checklogin(req,res,next){
  const uid = req.cookies.uid
  if(!uid){
@@ -15,8 +16,17 @@ async function checklogin(req,res,next){
         return res.render('login')
      }
      else{
-        req.user =user
-        next()
+      const userid= user._id
+       const userobject = await registermodel.findById(userid)
+       if(userobject.role!=='admin'){
+         req.user =user
+         next()
+       }
+       else{
+         req.user= user
+         next()
+       }
+        
      }
  }
 }
