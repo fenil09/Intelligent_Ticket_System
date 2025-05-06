@@ -17,5 +17,5 @@ application.get('/api/auth/home',checklogin,handler.redirecthome)
 application.post('/api/auth/login',handler.handlogin)
 application.post('/api/tickets',checklogin,handler.createtickets)
 application.get('/api/tickets',checklogin,handler.Getticket)
-application.get('/admin',checklogin,handler.GetticketsforAdmin)
+application.get('/admin',checklogin)
 module.exports = application

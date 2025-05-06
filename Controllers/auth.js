@@ -89,6 +89,7 @@ async function Getticket(req,res){
 
 
 async function GetticketsforAdmin(req,res){
+  console.log('getting tickets for admin')
   const tickets = await ticketcreationmodel.find({})
   res.render('admin',{tickets})
 }
